@@ -1,0 +1,63 @@
+---
+title: "Econ_Ass1"
+author: "Arash Barmas"
+date: "1/22/2019"
+output:
+  word_document: default
+  pdf_document: default
+---
+Part 2
+Question 1
+```{r}
+setwd("/Users/arashbarmas/Econ_147")
+sbux.df = read.csv(file="sbuxPrices.csv", header=TRUE, stringsAsFactors=FALSE)
+sbuxPrices.df = sbux.df[, "Adj.Close", drop=FALSE]
+```
+
+Question 2
+```{r}
+plot(sbux.df$Adj.Close, type="l", col=7, lwd=2)
+```
+Question 3
+```{r}
+# Simple Return
+n = nrow(sbuxPrices.df)
+sbux.ret = (sbuxPrices.df[2:n,1] - sbuxPrices.df[1:(n-1),1])/sbuxPrices.df[1:(n-1),1]
+class(sbux.ret)
+names(sbux.ret) = rownames(sbuxPrices.df)[2:n]
+head(sbux.ret)
+date_i = seq(from = 10, to = n-1, by = 12)
+lab_x  = seq(from = 1999, to = 2013, by = 1)
+# plot simple returns first
+plot(sbux.ret, type="l", col="blue", lwd=2, ylab="Return", xaxt = 'n',
+     main="Monthly Simple Returns on SBUX")
+axis(1, at=date_i, labels=lab_x)
+abline(h=0) 
+```
+```{r}
+
+# CC Return 
+sbux.ccret = log(sbuxPrices.df[2:n,1]) - log(sbuxPrices.df[1:(n-1),1])
+names(sbux.ccret) = rownames(sbuxPrices.df)[2:n]
+head(sbux.ccret)
+plot(sbux.ccret, type="l", col="blue", lwd=2, ylab="Return", xaxt = 'n',
+     main="Monthly Continuously Compounded Returns on SBUX")
+axis(1, at=date_i, labels=lab_x)
+abline(h=0)    
+
+```
+
+```{r}
+par(mfrow=c(2,1))  
+plot(sbux.ret, type="l", col="blue", lwd=2, ylab="Return", xaxt = 'n',
+     main="Monthly Simple Returns on SBUX")
+axis(1, at=date_i, labels=lab_x)
+abline(h=0) 
+
+plot(sbux.ccret, type="l", col="blue", lwd=2, ylab="Return", xaxt = 'n',
+     main="Monthly Continuously Compounded Returns on SBUX")
+axis(1, at=date_i, labels=lab_x)
+abline(h=0)    
+
+```
+
