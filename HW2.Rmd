@@ -1,0 +1,84 @@
+---
+title: "Econ_hw2"
+author: "Arash Barmas"
+date: "2/1/2019"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+# Question 2
+```{r}
+pnorm(-1.96)
+1 - pnorm(1.64)
+pnorm(0.5) - pnorm(-0.5)
+qnorm(0.01); qnorm(0.99)
+qnorm(0.05); qnorm(0.95)
+```
+# Question 3
+```{r}
+mu.x = 0.05
+sigma.x = 0.1
+mu.y = 0.025
+sigma.y = 0.05
+x.vals = seq(-0.25, 0.35, length=100)
+
+plot(x.vals, dnorm(x.vals, mean =mu.x, sd = sigma.x), type="l", col="blue", lwd=2, ylim=c(0,10))
+segments(x0=mu.x, y0=0, x1=mu.x, y1=dnorm(mu.x, mu.x, sigma.x), col="blue", lwd=2)
+lines(x.vals, dnorm(x.vals, mu.y, sigma.y), type="l", col="red", lwd=2)
+segments(x0=mu.y, y0=0, x1=mu.y, y1=dnorm(mu.y, mu.y, sigma.y), col="red", lwd=2) 
+legend(x="topleft", legend=c("Microsoft Stock","Starbucks stock"),col=c("blue","red"), lwd=2)
+
+```
+
+The graph for Microsoft has higher expectation (expected return), but it has higher variance. On the other hand,
+the graph of Starbucks has lower return, but lower variance as well. Thus, there are some tradesoffs as having higher expected return or lower variance, and higher expected return often comes with higher variance.
+
+# Question 4
+```{r}
+# L1 = W1 - W0 = W0*R
+# Distribution of W0*R ~ N(100,000 * 0.05, 100,000 * 0.12)
+# VaR 1%
+mean_L1 = 100000*0.05
+sd_L1 = 100000*0.12
+qnorm(0.01, mean_L1, sd_L1)
+qnorm(0.05, mean_L1, sd_L1)
+```
+
+# Question 5
+```{r}
+#r ~ iid N(0.05,(0.12)^2) 
+100000*(exp(qnorm(0.01, 0.05, 0.12))-1)
+100000*(exp(qnorm(0.05, 0.05, 0.12))-1)
+# yearly r ~ N(12*0.05, 12*0.12)
+100000*(exp(qnorm(0.01, 12*0.05, sqrt(12)*0.12))-1)
+100000*(exp(qnorm(0.05, 12*0.05, sqrt(12)*0.12))-1)
+
+```
+# Question 6
+
+```{r}
+x.vals = seq(0, 20, length=100)
+plot(x.vals, dchisq(x.vals, df=1), type="l", lwd=2, lty=1, col=1, ylab="pdf", xlab="x")
+lines(x.vals, dchisq(x.vals, df=2), type="l", lwd=2, lty=2, col=2, ylab="pdf", xlab="x")
+lines(x.vals, dchisq(x.vals, df=4), type="l", lwd=2, lty=3, col=3, ylab="pdf", xlab="x")
+lines(x.vals, dchisq(x.vals, df=10), type="l", lwd=2, lty=4, col=4, ylab="pdf", xlab="x")
+legend(x="topright", legend=c("df=1", "df=2", "df=4", "df=10"), lwd=2, lty=c(1,2,3,4), col=1:4)
+title("chi-squared")
+```
+```{r}
+x.vals = seq(-4, 4, by = 0.01)
+plot(x.vals, dt(x.vals, df=1), type="l", lwd=2, lty=1, col=1, ylab="pdf", xlab="x", ylim = c(0,0.4))
+lines(x.vals, dt(x.vals, df=2), type="l", lwd=2, lty=2, col=2, ylab="pdf", xlab="x")
+lines(x.vals, dt(x.vals, df=4), type="l", lwd=2, lty=3, col=3, ylab="pdf", xlab="x")
+lines(x.vals, dt(x.vals, df=10), type="l", lwd=2, lty=4, col=4, ylab="pdf", xlab="x")
+lines(x.vals, dnorm(x.vals), type="l", lwd=2, lty=5, col=5, ylab="pdf", xlab="x")
+legend(x="topright", legend=c("df=1", "df=2", "df=4", "df=10", "nomral"), lwd=2, lty=c(1,2,3,4,5), col=1:5)
+title("t-distribution")
+```
+
+
+
+As we can see in the graph, the tail for t-distribution is fatter than standard normal. Therefore, VaR for t-distribution is smaller than standard normal
+
+
