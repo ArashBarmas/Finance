@@ -1,0 +1,452 @@
+---
+title: "Econ_HW4"
+author: "Arash Barmas"
+date: "2/28/2019"
+output:
+  word_document: default
+  html_document: default
+---
+R Exercise A
+Question 1
+We have an MA(1) model
+Simulate and plot 250 obser- vations of the MA(1)
+
+
+1 a)
+```{r}
+theta = 0.5
+mu    = 0.05
+ma1.model.5 = list(ma=theta)
+
+set.seed(123)
+ma1.sim.5 = mu + arima.sim(model=ma1.model.5, n=250,
+                         innov=rnorm(n=250, mean=0, sd=0.1))
+
+acf.ma1.model.5 = ARMAacf(ma=theta, lag.max=10)
+par(mfrow=c(3,1))
+	plot(ma1.sim.5, main="MA(1) Process: mu=0.05, theta=0.5",xlab="time",ylab="y(t)")
+	abline(h=0)
+	plot(1:11, acf.ma1.model.5, type="h", col="blue", main="Theoretical ACF")
+	tmp=acf(ma1.sim.5, lag.max=10, main="Sample ACF")
+```
+
+```{r}
+theta = 0.9
+mu    = 0.05
+ma1.model.5 = list(ma=theta)
+
+set.seed(123)
+ma1.sim.5 = mu + arima.sim(model=ma1.model.5, n=250,
+                         innov=rnorm(n=250, mean=0, sd=0.1))
+
+acf.ma1.model.5 = ARMAacf(ma=theta, lag.max=10)
+par(mfrow=c(3,1))
+	plot(ma1.sim.5, main="MA(1) Process: mu=0.05, theta=0.9",xlab="time",ylab="y(t)")
+	abline(h=0)
+	plot(1:11, acf.ma1.model.5, type="h", col="blue", main="Theoretical ACF")
+	tmp=acf(ma1.sim.5, lag.max=10, main="Sample ACF")
+```
+```{r}
+theta = -0.9
+mu    = 0.05
+ma1.model.5 = list(ma=theta)
+
+set.seed(123)
+ma1.sim.5 = mu + arima.sim(model=ma1.model.5, n=250,
+                         innov=rnorm(n=250, mean=0, sd=0.1))
+
+acf.ma1.model.5 = ARMAacf(ma=theta, lag.max=10)
+par(mfrow=c(3,1))
+	plot(ma1.sim.5, main="MA(1) Process: mu=0.05, theta=-0.9",xlab="time",ylab="y(t)")
+	abline(h=0)
+	plot(1:11, acf.ma1.model.5, type="h", col="blue", main="Theoretical ACF")
+	tmp=acf(ma1.sim.5, lag.max=10, main="Sample ACF")
+```
+
+1 b)
+As we know our model is MA(1), so Y(t) is a linear combination of mu, e(t), and e(t-1).
+Also, the sign of the correlations of two RV with lag 1 (Y(t) and Y(t-1)) is determined by theta.
+By increasing theta, the first lag on the ACF didn't change much.
+
+
+
+
+
+
+Question 2
+
+2 a)
+```{r}
+phi = 0 
+mu  = 0.05
+ar1.model.5 = list(ar=phi)
+
+set.seed(123)
+ar1.sim.5 = suppressWarnings(mu*(1-phi) + arima.sim(model=ar1.model.5, n = 250,
+                             innov=rnorm(n=250, mean=0, sd=0.1)))
+acf.ar1.model.5 = ARMAacf(ar=phi, lag.max=10)
+
+par(mfrow=c(3,1))
+	plot(ar1.sim.5, main="AR(1) Process: mu=0.05, phi=0",
+	       xlab="time",ylab="y(t)")
+	abline(h=0)
+	plot(1:11, acf.ar1.model.5, type="h", col="blue", main="Theoretical ACF")
+	tmp=acf(ar1.sim.5, lag.max=10, main="Sample ACF")
+
+```
+
+
+```{r}
+phi = 0.5
+mu  = 0.05
+ar1.model.5 = list(ar=phi)
+
+set.seed(123)
+ar1.sim.5 = mu*(1-phi) + arima.sim(model=ar1.model.5, n = 250,
+                             innov=rnorm(n=250, mean=0, sd=0.1))
+acf.ar1.model.5 = ARMAacf(ar=phi, lag.max=10)
+
+par(mfrow=c(3,1))
+	plot(ar1.sim.5, main="AR(1) Process: mu=0.05, phi=0.5",
+	       xlab="time",ylab="y(t)")
+	abline(h=0)
+	plot(1:11, acf.ar1.model.5, type="h", col="blue", main="Theoretical ACF")
+	tmp=acf(ar1.sim.5, lag.max=10, main="Sample ACF")
+
+```
+
+```{r}
+phi = 0.9
+mu  = 0.05
+ar1.model.5 = list(ar=phi)
+
+set.seed(123)
+ar1.sim.5 = mu*(1-phi) + arima.sim(model=ar1.model.5, n = 250,
+                             innov=rnorm(n=250, mean=0, sd=0.1))
+acf.ar1.model.5 = ARMAacf(ar=phi, lag.max=10)
+
+par(mfrow=c(3,1))
+	plot(ar1.sim.5, main="AR(1) Process: mu=0.05, phi=0.9",
+	       xlab="time",ylab="y(t)")
+	abline(h=0)
+	plot(1:11, acf.ar1.model.5, type="h", col="blue", main="Theoretical ACF")
+	tmp=acf(ar1.sim.5, lag.max=10, main="Sample ACF")
+```
+
+```{r}
+phi = 0.99
+mu  = 0.05
+ar1.model.5 = list(ar=phi)
+
+set.seed(123)
+ar1.sim.5 = mu*(1-phi) + arima.sim(model=ar1.model.5, n = 250,
+                             innov=rnorm(n=250, mean=0, sd=0.1))
+acf.ar1.model.5 = ARMAacf(ar=phi, lag.max=10)
+
+par(mfrow=c(3,1))
+	plot(ar1.sim.5, main="AR(1) Process: mu=0.05, phi=0.99",
+	       xlab="time",ylab="y(t)")
+	abline(h=0)
+	plot(1:11, acf.ar1.model.5, type="h", col="blue", main="Theoretical ACF")
+	tmp=acf(ar1.sim.5, lag.max=10, main="Sample ACF")
+```
+2 b)
+By observing the ACFs, we ifer that the phi effects the correlation, and hence dependence in out process.
+Also, for large values of phi, the process looks like a non-stationary process.
+For phi =0, the process will turn to Y(t) = mu + e(t), thus ACF graph doesn't show any correlation.
+
+R Exercise B
+
+
+Question 1
+
+```{r}
+options(digits=4, width=70)
+library(PerformanceAnalytics)
+library(zoo)
+library(tseries)
+VBLTX.prices = get.hist.quote(instrument="vbltx", start="1998-01-01",
+                             end="2009-12-31", quote="AdjClose",
+                             provider="yahoo", origin="1970-01-01",
+                             compression="m", retclass="zoo")
+index(VBLTX.prices) = as.yearmon(index(VBLTX.prices))
+
+FMAGX.prices = get.hist.quote(instrument="fmagx", start="1998-01-01",
+                             end="2009-12-31", quote="AdjClose",
+                             provider="yahoo", origin="1970-01-01",
+                             compression="m", retclass="zoo")
+index(FMAGX.prices) = as.yearmon(index(FMAGX.prices))
+
+SBUX.prices = get.hist.quote(instrument="sbux", start="1998-01-01",
+                             end="2009-12-31", quote="AdjClose",
+                             provider="yahoo", origin="1970-01-01",
+                             compression="m", retclass="zoo")
+index(SBUX.prices) = as.yearmon(index(SBUX.prices))
+#merged data
+lab4Prices.z = merge(VBLTX.prices, FMAGX.prices, SBUX.prices)
+colnames(lab4Prices.z) = c("VBLTX", "FMAGX", "SBUX")
+lab4Returns.z = diff(log(lab4Prices.z))
+
+start(lab4Returns.z)
+end(lab4Returns.z)
+colnames(lab4Returns.z) 
+head(lab4Returns.z)
+```
+
+1 a)
+```{r}
+my.panel <- function(...) {
+  lines(...)
+  abline(h=0)
+}
+plot(lab4Returns.z, col="blue", lwd=2, main="Monthly cc returns on 3 assets",
+     panel=my.panel)
+```
+
+
+
+The scale for each graph is different. The graph of VBLTX has lowest volatility, and SBUX has highest volatility if we conisder the sclae difference. In 2018, VBlTX went up, but other two funds went down.
+
+```{r}
+chart.TimeSeries(lab4Returns.z, legend.loc="bottom", main="") 
+```
+We can observe the volatility better by comparing them all on the same graph.
+```{r}
+chart.Bar(lab4Returns.z, main="")
+```
+
+
+
+1 b)
+
+
+```{r}
+chart.CumReturns(diff(lab4Prices.z)/lag(lab4Prices.z, k=-1), 
+                 legend.loc="topleft", wealth.index=TRUE,
+                 main="Future Value of $1 invested")
+ret.mat = coredata(lab4Returns.z)
+```
+
+
+Over the investment horizon, SBUX had the best future value, but also had highest volatility
+VBLTX had steady return. FMAGX had the worst future value.
+
+1 c)
+```{r}
+par(mfrow=c(2,2))
+	hist(ret.mat[,"VBLTX"],main="VBLTX monthly returns",
+	     xlab="VBLTX", probability=T, col="slateblue1")
+	boxplot(ret.mat[,"VBLTX"],outchar=T, main="Boxplot", col="slateblue1")
+	plot(density(ret.mat[,"VBLTX"]),type="l", main="Smoothed density",
+           xlab="monthly return", ylab="density estimate", col="slateblue1")
+	qqnorm(ret.mat[,"VBLTX"], col="slateblue1")
+	qqline(ret.mat[,"VBLTX"])
+par(mfrow=c(1,1))
+```
+The distribution is relatively symmetric with fatter tails on the left side as we see it on box-plot and hist density.
+The Q-Q plot indicates some differences on the tails, but pretty much like normal on the middle.
+
+```{r}
+par(mfrow=c(2,2))
+	hist(ret.mat[,"FMAGX"],main="FMAGX monthly returns",
+	     xlab="FMAGX", probability=T, col="slateblue1")
+	boxplot(ret.mat[,"FMAGX"],outchar=T, main="Boxplot", col="slateblue1")
+	plot(density(ret.mat[,"FMAGX"]),type="l", main="Smoothed density",
+	     xlab="monthly return", ylab="density estimate", col="slateblue1")
+	qqnorm(ret.mat[,"FMAGX"], col="slateblue1")
+	qqline(ret.mat[,"FMAGX"])
+par(mfrow=c(1,1))
+```
+The distribution doesn't look normal.(more data on the right, negatively skewed)
+The Q-Q plot indicates fat tail on the left side than normal, but simillar to normal on the middle.
+```{r}
+par(mfrow=c(2,2))
+	hist(ret.mat[,"SBUX"],main="SBUX monthly returns",
+	     xlab="SBUX", probability=T, col="slateblue1")
+	boxplot(ret.mat[,"SBUX"],outchar=T, main="Boxplot", col="slateblue1")
+	plot(density(ret.mat[,"SBUX"]),type="l", main="Smoothed density",
+	     xlab="monthly return", ylab="density estimate", col="slateblue1")
+	qqnorm(ret.mat[,"SBUX"], col="slateblue1")
+	qqline(ret.mat[,"SBUX"])
+par(mfrow=c(1,1))
+```
+The distribution is not very symmetric with(somehow negatively skewed)
+The Q-Q plot indicated left tail doesn't look like normal but right is more simillar
+
+
+```{r}
+boxplot(ret.mat[,"VBLTX"], ret.mat[,"FMAGX"], ret.mat[,"SBUX"],
+        names=colnames(ret.mat), col="slateblue1")
+```
+This box-plot graph will help us to compare them all together b/c they are on the same scale.
+As we can see, VBLTX has the lowest volatility, and SBUX has the highest.
+
+1 d)
+```{r}
+summary(ret.mat)
+print("Mean")
+apply(ret.mat, 2, mean)
+print("var")
+apply(ret.mat, 2, var)
+print("SD")
+apply(ret.mat, 2, sd)
+print("skewness")
+apply(ret.mat, 2, skewness)
+print("kurtosis")
+apply(ret.mat, 2, kurtosis)
+
+```
+
+
+SBUX has the highest mean, and all the means are positive.
+Variance of SUBUX is the highest, and VBLTX has the lowest variance which we observed it in the previous parts.
+Skeweness is negative for all of them. Meaning that distributions are all negatively skewed.
+Kurtosis (excess) indicates that they all have fatter tails than nomral.
+
+1 e) and f)
+
+```{r}
+# annualized cc mean 
+12*apply(ret.mat, 2, mean)
+
+# annualized simple mean
+exp(12*apply(ret.mat, 2, mean)) - 1
+
+# annualized sd values
+sqrt(12)*apply(ret.mat, 2, sd)
+```
+
+first row is the cc return. 
+SBUX has the highest(but with high sd).
+VBLTX has the lowest mean.
+The data makes sense because stock the most volatile(more than portfolios), and portfolios are also more volatile than bonds.
+sd value for SBUX is the highest, and lowest for VBlTX.
+
+1 g)
+```{r}
+pairs(ret.mat, col="slateblue1", pch=16)
+```
+ No clear relation exists except between FMAGX and SBUX which a linear relationship can be seen.
+ 
+ 1 h)
+```{r}
+# compute 3 x 3 covariance and correlation matrices
+var(ret.mat)
+cor(ret.mat)
+```
+cov between VBLTX and FMAGX is positive (positive linear relation)
+cov between FMAGX and SBUX is positive (positive linear relation)
+cov between VBLTX and SBUX is negative (negative linear relation)
+
+```{r}
+par(mfrow=c(3,1))
+	acf.msft = acf(ret.mat[,"VBLTX"], main="VBLTX")
+	acf.sbux = acf(ret.mat[,"FMAGX"], main="FMAGX")
+	acf.sp500 = acf(ret.mat[,"SBUX"], main="SBUX")
+par(mfrow=c(1,1))
+```
+
+It shows that it is almost uncorrelated for all 3 assets.
+
+
+2 a)
+
+```{r}
+muhat.vals = apply(ret.mat, 2, mean)
+muhat.vals
+sigma2hat.vals = apply(ret.mat, 2, var)
+sigma2hat.vals
+sigmahat.vals = apply(ret.mat, 2, sd)
+sigmahat.vals
+cov.mat = var(ret.mat)
+cov.mat
+cor.mat = cor(ret.mat)
+cor.mat
+covhat.vals = cov.mat[lower.tri(cov.mat)]
+rhohat.vals = cor.mat[lower.tri(cor.mat)]
+names(covhat.vals) <- names(rhohat.vals) <- 
+c("VBLTX,FMAGX","VBLTX,SBUX","FMAGX,SBUX")
+covhat.vals
+rhohat.vals
+
+cbind(muhat.vals,sigma2hat.vals,sigmahat.vals)
+cbind(covhat.vals,rhohat.vals)
+```
+
+As we can see, SBUX has the highest mean and SD. (make sense b/c it's individual stock)
+VBLTX has the lowest SD b/c it's a bond.
+FAMAGX is a portfolio which mean the lowest.
+
+2 b) c)
+```{r}
+# compute estimated standard error for mean
+nobs = nrow(ret.mat)
+nobs
+se.muhat = sigmahat.vals/sqrt(nobs)
+se.muhat
+
+cbind(muhat.vals,se.muhat)
+
+# compute approx 95% confidence intervals
+mu.lower = muhat.vals - 2*se.muhat
+mu.upper = muhat.vals + 2*se.muhat
+cbind(mu.lower,mu.upper)
+
+# compute estimated standard errors for variance and sd
+se.sigma2hat = sigma2hat.vals/sqrt(nobs/2)
+se.sigma2hat
+se.sigmahat = sigmahat.vals/sqrt(2*nobs)
+se.sigmahat
+
+cbind(sigma2hat.vals,se.sigma2hat)
+cbind(sigmahat.vals,se.sigmahat)
+
+# compute approx 95% confidence intervals
+sigma2.lower = sigma2hat.vals - 2*se.sigma2hat
+sigma2.upper = sigma2hat.vals + 2*se.sigma2hat
+cbind(sigma2.lower,sigma2.upper)
+
+sigma.lower = sigmahat.vals - 2*se.sigmahat
+sigma.upper = sigmahat.vals + 2*se.sigmahat
+cbind(sigma.lower,sigma.upper)
+
+# compute estimated standard errors for correlation
+se.rhohat = (1-rhohat.vals^2)/sqrt(nobs)
+se.rhohat
+cbind(rhohat.vals,se.rhohat)
+
+# compute approx 95% confidence intervals
+rho.lower = rhohat.vals - 2*se.rhohat
+rho.upper = rhohat.vals + 2*se.rhohat
+cbind(rho.lower,rho.upper)
+```
+
+The variance and SD are estimated more precisely.
+The mean is not estimated precisely.
+the cor of VBLTX is not very precise.
+the cor between FMAGX and SBUX is precise.
+The 95% for mean of SBUX and FMAGX have negative and positive values and it's relatively wide, so it's not good estimate
+The 95% for SD and var is not very wide, thus it give us more precise estimate
+The third line in the correkation estimate is narrow.
+
+
+
+2 d)
+```{r}
+Value.at.Risk = function(x,p=0.05,w=100000) {
+	x = as.matrix(x)
+	q = apply(x, 2, mean) + apply(x, 2, sd)*qnorm(p)
+	VaR = (exp(q) - 1)*w
+	VaR
+}
+
+Value.at.Risk(ret.mat,p=0.05,w=100000)
+Value.at.Risk(ret.mat,p=0.01,w=100000)
+```
+
+As we can see, the largest VaR is for SBUX( makes sense).
+VBLTX has the lowest VaR value
+
+
+
+
